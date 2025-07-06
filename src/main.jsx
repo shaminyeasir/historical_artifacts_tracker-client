@@ -24,10 +24,11 @@ const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
-    errorElement: <ErrorPage></ErrorPage>,
+    // errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         index: true,
+        loader: () => fetch('http://localhost:3000/allartifacts_top6'),
         Component: HomePage
       },
       {
@@ -44,6 +45,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/allartifacts",
+        loader: () => fetch('http://localhost:3000/allartifacts'),
         element: <PrivateRoute><AllArtifacts></AllArtifacts></PrivateRoute>
       },
       {
@@ -55,7 +57,7 @@ const router = createBrowserRouter([
         element: <PrivateRoute><MyArtifacts></MyArtifacts></PrivateRoute>
       },
       {
-        path: "/artifactdetails",
+        path: "/artifactdetails/:id",
         element: <PrivateRoute><ArtifactDetails></ArtifactDetails></PrivateRoute>
       },
       {
