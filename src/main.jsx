@@ -61,7 +61,7 @@ const router = createBrowserRouter([
         element: <PrivateRoute><ArtifactDetails></ArtifactDetails></PrivateRoute>
       },
       {
-        path: "/updateartifact",
+        path: "/updateartifact/:id",
         element: <PrivateRoute><UpdateArtifact></UpdateArtifact></PrivateRoute>
       }
     ]

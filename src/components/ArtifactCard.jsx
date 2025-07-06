@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heart } from 'lucide-react';
+import { ThumbsUp } from 'lucide-react';
 import { Link } from 'react-router';
 
 const ArtifactCard = ({ artifact }) => {
@@ -16,8 +16,8 @@ const ArtifactCard = ({ artifact }) => {
                 <h2 className="text-xl font-semibold text-gray-800 mb-2">{artifactName}</h2>
                 <p className="text-gray-600 text-sm mb-4 line-clamp-3">{shortDescription}</p>
                 <div className="flex items-center justify-between">
-                    <div className="flex items-center text-red-500">
-                        <Heart className="w-5 h-5 mr-1" />
+                    <div className="flex items-center text-green-500">
+                        <ThumbsUp className="w-5 h-5 mr-1" />
                         <span>{likeCount}</span>
                     </div>
                     <Link to={`/artifactdetails/${_id}`}>
