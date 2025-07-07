@@ -10,7 +10,7 @@ const LikedArtifacts = () => {
         const fetchLikedArtifacts = async () => {
             const user = auth.currentUser;
             try {
-                const userRes = await fetch(`http://localhost:3000/users/${user.email}`);
+                const userRes = await fetch(`http://localhost:3000/users/${user.email}`, {credentials: 'include'});
                 const userData = await userRes.json();
                 const artifactIds = userData.likedArtifacts;
 
@@ -23,6 +23,7 @@ const LikedArtifacts = () => {
                 const artifactsRes = await fetch(`http://localhost:3000/artifacts/by-ids`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
                     body: JSON.stringify({ ids: artifactIds })
                 });
                 const artifactsData = await artifactsRes.json();

@@ -23,6 +23,7 @@ const AddArtifacts = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify(fullArtifactData)
         })
             .then(res => res.json())
@@ -62,6 +63,7 @@ const AddArtifacts = () => {
                                 <option value="Weapons">Weapons</option>
                                 <option value="Documents">Documents</option>
                                 <option value="Writings">Writings</option>
+                                <option value="Place">Place</option>
                             </select>
                         </div>
                         <div>

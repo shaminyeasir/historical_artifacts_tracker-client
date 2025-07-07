@@ -11,7 +11,7 @@ const ArtifactDetails = () => {
 
     useEffect(() => {
         const fetchArtifactAndCheckLiked = async () => {
-            const res = await fetch(`http://localhost:3000/artifacts/${id}`);
+            const res = await fetch(`http://localhost:3000/artifacts/${id}`, {credentials: 'include'});
             const data = await res.json();
             setArtifact(data);
             setLikeCount(data.likeCount || 0);
@@ -19,7 +19,7 @@ const ArtifactDetails = () => {
             const user = auth.currentUser;
             if (!user) return;
 
-            const userRes = await fetch(`http://localhost:3000/users/${user.email}`);
+            const userRes = await fetch(`http://localhost:3000/users/${user.email}`, {credentials: 'include'});
             const userData = await userRes.json();
 
             const likedArtifacts = userData.likedArtifacts || [];
@@ -39,6 +39,7 @@ const ArtifactDetails = () => {
         await fetch(`http://localhost:3000/artifacts/${id}/like`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
             body: JSON.stringify({ likeCount: updatedCount })
         });
 
@@ -57,6 +58,7 @@ const ArtifactDetails = () => {
         await fetch(userLikeUrl, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
             body: JSON.stringify(payload)
         });
     };

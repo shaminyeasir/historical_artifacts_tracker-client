@@ -26,6 +26,7 @@ const MyArtifacts = () => {
         fetch("http://localhost:3000/myartifacts", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
+            credentials: 'include',
             body: JSON.stringify({ email: user.email })
         })
             .then(res => res.json())
@@ -44,7 +45,7 @@ const MyArtifacts = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:3000/artifacts/${id}`, { method: 'DELETE' })
+                fetch(`http://localhost:3000/artifacts/${id}`, { method: 'DELETE', credentials: 'include' })
                     .then(res => res.json())
                     .then(data => {
                         if (data.deletedCount) {
