@@ -3,6 +3,7 @@ import { AuthContext } from '../contexts/AuthContext';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import { auth } from '../firebase.init';
 
 
 
@@ -26,6 +27,18 @@ const Login = () => {
         LogInUser(email, password)
             .then(result => {
                 console.log(result.user);
+                fetch('http://localhost:3000/users', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: auth.currentUser.email
+                    })
+                })
+
+                    .then(res => res.json())
+                    .then(data => console.log(data))
 
                 // navigate(location?.state || '/')
                 navigate(route)
@@ -40,6 +53,20 @@ const Login = () => {
         GoogleLogin()
             .then(result => {
                 console.log(result.user)
+
+                fetch('http://localhost:3000/users', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: auth.currentUser.email
+                    })
+                })
+
+                    .then(res => res.json())
+                    .then(data => console.log(data))
+
                 navigate(route)
             })
             .catch(error => {
@@ -59,7 +86,7 @@ const Login = () => {
         <div className="w-full my-[100px] mx-auto max-w-md p-4 rounded-md shadow sm:p-8 dark:bg-gray-50 dark:text-gray-800">
             <h2 className="mb-3 text-3xl font-semibold text-center">Login to your account</h2>
             <p className="text-sm text-center dark:text-gray-600 mb-[40px]">Dont have an account?
-                <a href="/register" rel="noopener noreferrer" className="focus:underline hover:underline"> Signup here</a>
+                <a href="/register" rel="noopener noreferrer" className="focus:underline hover:underline"> Register here</a>
             </p>
 
 
@@ -67,7 +94,7 @@ const Login = () => {
                 <div className="space-y-4">
                     <div className="space-y-2">
                         <label htmlFor="email" className="block text-sm">Email address</label>
-                        <input onChange={handleClick} type="email" required name="email" id="email" placeholder="harry@gmail.com" className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600" />
+                        <input onChange={handleClick} type="email" required name="email" id="email" placeholder="mark@gmail.com" className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600" />
                     </div>
                     <div className="space-y-2">
                         <div className="flex justify-between relative">

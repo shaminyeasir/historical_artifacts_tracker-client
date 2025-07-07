@@ -40,8 +40,11 @@ const Register = () => {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(auth.currentUser)
+                    body: JSON.stringify({
+                        email: auth.currentUser.email
+                    })
                 })
+
                     .then(res => res.json())
                     .then(data => {
                         if (data.insertedId) {
@@ -64,6 +67,20 @@ const Register = () => {
         GoogleLogin()
             .then(result => {
                 console.log(result.user)
+                
+                fetch('http://localhost:3000/users', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: auth.currentUser.email
+                    })
+                })
+
+                    .then(res => res.json())
+                    .then(data => console.log(data))
+
                 navigate(route)
             })
             .catch(error => {
@@ -75,7 +92,7 @@ const Register = () => {
 
     return (
         <div className="w-full my-[100px] mx-auto max-w-md p-4 rounded-md shadow sm:p-8 dark:bg-gray-50 dark:text-gray-800">
-            <h2 className="mb-3 text-3xl font-semibold text-center">Signup Here</h2>
+            <h2 className="mb-3 text-3xl font-semibold text-center">Register Here</h2>
             <p className="text-sm text-center dark:text-gray-600">Already have an account?
                 <a href="/login" rel="noopener noreferrer" className="focus:underline hover:underline"> Login here</a>
             </p>
@@ -90,7 +107,7 @@ const Register = () => {
                     </div>
                     <div className="space-y-2">
                         <label htmlFor="email" className="block text-sm">Email address</label>
-                        <input type="email" name="email" required id="email" placeholder="harry@gmail.com" className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600" />
+                        <input type="email" name="email" required id="email" placeholder="mark@gmail.com" className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600" />
                     </div>
                     <div className="space-y-2">
                         <label htmlFor="photoUrl" className="block text-sm">Photo URL</label>
@@ -106,7 +123,7 @@ const Register = () => {
                         <p className='text-green-500'>Password must have at least one lower case letter, one upper case letter and total 6 characters.</p>
                     </div>
                 </div>
-                <button type="submit" className="w-full hover:cursor-pointer px-8 py-3 font-semibold rounded-md dark:bg-violet-600 dark:text-gray-50">Signup</button>
+                <button type="submit" className="w-full hover:cursor-pointer px-8 py-3 font-semibold rounded-md dark:bg-violet-600 dark:text-gray-50">Register</button>
             </form>
 
             <div className="flex items-center w-full my-4">

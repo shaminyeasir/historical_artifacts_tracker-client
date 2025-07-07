@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ThumbsUp, ThumbsDown } from 'lucide-react';
 import { useParams } from 'react-router';
+import { auth } from '../firebase.init';
 
 const ArtifactDetails = () => {
     const { id } = useParams();
@@ -9,25 +10,57 @@ const ArtifactDetails = () => {
     const [likeCount, setLikeCount] = useState(0);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/artifacts/${id}`)
-            .then(res => res.json())
-            .then(data => {
-                setArtifact(data);
-                setLikeCount(data.likeCount || 0);
-            });
+        const fetchArtifactAndCheckLiked = async () => {
+            const res = await fetch(`http://localhost:3000/artifacts/${id}`);
+            const data = await res.json();
+            setArtifact(data);
+            setLikeCount(data.likeCount || 0);
+
+            const user = auth.currentUser;
+            if (!user) return;
+
+            const userRes = await fetch(`http://localhost:3000/users/${user.email}`);
+            const userData = await userRes.json();
+
+            const likedArtifacts = userData.likedArtifacts || [];
+            const hasLiked = likedArtifacts.includes(id);
+            setLiked(hasLiked);
+        };
+
+        fetchArtifactAndCheckLiked();
     }, [id]);
 
-    const handleLikeToggle = () => {
+
+    const handleLikeToggle = async () => {
         const updatedCount = liked ? likeCount - 1 : likeCount + 1;
         setLiked(!liked);
         setLikeCount(updatedCount);
 
-        fetch(`http://localhost:3000/artifacts/${id}/like`, {
+        await fetch(`http://localhost:3000/artifacts/${id}/like`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ likeCount: updatedCount })
         });
+
+        const user = auth.currentUser;
+        if (!user) return;
+
+        const payload = {
+            email: user.email,
+            artifactId: id
+        };
+
+        const userLikeUrl = liked
+            ? 'http://localhost:3000/users/unlike'
+            : 'http://localhost:3000/users/like';
+
+        await fetch(userLikeUrl, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
     };
+
 
     if (!artifact) return <div className="text-center mt-10 text-lg">Loading...</div>;
 
@@ -52,9 +85,8 @@ const ArtifactDetails = () => {
             <div className="mt-6 flex items-center gap-4">
                 <button
                     onClick={handleLikeToggle}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${
-                        liked ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-800'
-                    }`}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${liked ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-800'
+                        }`}
                 >
                     {liked ? <ThumbsDown size={20} /> : <ThumbsUp size={20} />}
                     {liked ? 'Dislike' : 'Like'}
