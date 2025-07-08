@@ -6,10 +6,10 @@ const Banner = () => {
             <div className="carousel w-full mt-[50px]">
                 {/* Slide 1 */}
                 <div id="slide1" className="carousel-item relative w-full">
-                    <div className="bg-yellow-100 w-full flex items-center justify-center h-[300px] sm:h-[400px] md:h-[500px] px-4 sm:px-8 text-center">
+                    <div className="bg-cyan-100 w-full flex items-center justify-center h-[300px] sm:h-[400px] md:h-[500px] px-4 sm:px-8 text-center">
                         <div>
                             <h1 className="text-3xl md:text-5xl font-bold mb-4">
-                                Welcome to <span className='text-orange-500'>Historical Artifacts Tracker</span>
+                                Welcome to <span className='text-blue-700'>Historical</span> <span className='text-indigo-500'>Artifacts Tracker</span>
                             </h1>
                             <p className="text-lg md:text-xl">
                                 Discover, collect, and track rare and ancient artifacts from across the world.
