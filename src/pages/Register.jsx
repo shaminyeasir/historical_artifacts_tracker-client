@@ -67,7 +67,7 @@ const Register = () => {
         GoogleLogin()
             .then(result => {
                 console.log(result.user)
-                
+
                 fetch('http://localhost:3000/users', {
                     method: 'POST',
                     headers: {
