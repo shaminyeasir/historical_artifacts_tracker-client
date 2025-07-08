@@ -8,6 +8,11 @@ const Navbar = () => {
 
     const handleLogOut = async () => {
         await LogoutUser();
+        await fetch('http://localhost:3000/logout', {
+            method: 'POST',
+            credentials: 'include'
+        });
+
         navigate('/');
     };
 

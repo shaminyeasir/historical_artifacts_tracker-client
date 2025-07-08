@@ -9,14 +9,28 @@ const LikedArtifacts = () => {
     useEffect(() => {
         const fetchLikedArtifacts = async () => {
             const user = auth.currentUser;
+            if (!user) {
+                setLoading(false);
+                return;
+            }
+
             try {
-                const userRes = await fetch(`http://localhost:3000/users/${user.email}`, {credentials: 'include'});
+                const userRes = await fetch(`http://localhost:3000/users/${user.email}`, {
+                    credentials: 'include'
+                });
+
+                if (!userRes.ok) {
+                    if (userRes.status === 401 || userRes.status === 403) {
+                        throw new Error('Unauthorized. Please log in.');
+                    }
+                    throw new Error('Failed to fetch user data.');
+                }
+
                 const userData = await userRes.json();
                 const artifactIds = userData.likedArtifacts;
 
                 if (!artifactIds || artifactIds.length === 0) {
                     setLikedArtifacts([]);
-                    setLoading(false);
                     return;
                 }
 
@@ -26,10 +40,17 @@ const LikedArtifacts = () => {
                     credentials: 'include',
                     body: JSON.stringify({ ids: artifactIds })
                 });
+
+                if (!artifactsRes.ok) {
+                    throw new Error('Failed to fetch artifact details');
+                }
+
                 const artifactsData = await artifactsRes.json();
                 setLikedArtifacts(artifactsData);
+
             } catch (error) {
-                console.error("Failed to load liked artifacts", error);
+                console.error("Error:", error.message);
+                setLikedArtifacts(null); 
             } finally {
                 setLoading(false);
             }
@@ -37,6 +58,7 @@ const LikedArtifacts = () => {
 
         fetchLikedArtifacts();
     }, []);
+
 
     if (loading) return <div className="text-center mt-10">Loading...</div>;
 
