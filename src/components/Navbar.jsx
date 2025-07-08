@@ -43,7 +43,7 @@ const Navbar = () => {
                     className="mb-0 text-3xl sm:text-4xl font-extrabold text-blue-700 text-center lg:text-left"
                 >
                     Historical <br />
-                    <span className="text-blue-400">Artifacts</span>
+                    <span className="text-blue-400">Artifacts Tracker</span>
                 </h1>
             </div>
 
