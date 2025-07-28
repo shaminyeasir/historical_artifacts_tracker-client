@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+import { StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import {
@@ -28,7 +28,22 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        loader: () => fetch('http://localhost:3000/allartifacts_top6'),
+        // loader: () => fetch('https://historical-artifacts-tracker-server-one.vercel.app/allartifacts_top6', {credentials : 'include'}),
+        loader: async () => {
+          try {
+            const res = await fetch('https://historical-artifacts-tracker-server-one.vercel.app/allartifacts_top6', {
+              credentials: 'include'
+            });
+            if (!res.ok) {
+              throw new Error('Failed to fetch');
+            }
+            return await res.json();
+          } catch (err) {
+            console.error(err);
+            return null; // 
+          }
+        },
+
         Component: HomePage
       },
       {
@@ -45,8 +60,22 @@ const router = createBrowserRouter([
       },
       {
         path: "/allartifacts",
-        loader: () => fetch('http://localhost:3000/allartifacts'),
-        element: <PrivateRoute><AllArtifacts></AllArtifacts></PrivateRoute>
+        // loader: () => fetch('https://historical-artifacts-tracker-server-one.vercel.app/allartifacts', { credentials: 'include' }),
+        loader: async () => {
+          try {
+            const res = await fetch('https://historical-artifacts-tracker-server-one.vercel.app/allartifacts', {
+              credentials: 'include'
+            });
+            if (!res.ok) {
+              throw new Error('Failed to fetch');
+            }
+            return await res.json();
+          } catch (err) {
+            console.error(err);
+            return null; // 
+          }
+        },
+        element: <AllArtifacts></AllArtifacts>
       },
       {
         path: "/likedartifacts",

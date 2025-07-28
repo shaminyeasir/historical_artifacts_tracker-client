@@ -30,16 +30,18 @@ const Register = () => {
         RegisterUser(email, password)
             .then(async result => {
                 //console.log(result);
+
                 await updateProfile(result.user, {
                     displayName: name,
                     photoURL: photoUrl,
                 });
 
-                fetch('http://localhost:3000/users', {
+                fetch('https://historical-artifacts-tracker-server-one.vercel.app/users', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
+                    credentials: 'include',
                     body: JSON.stringify({
                         email: auth.currentUser.email
                     })
@@ -51,9 +53,11 @@ const Register = () => {
                             //console.log('User added successfully.');
 
                             Swal.fire({
-                                title: "User added successfully!",
+                                position: "top-end",
                                 icon: "success",
-                                draggable: true
+                                title: "Registration Successful!",
+                                showConfirmButton: false,
+                                timer: 1500
                             });
                         }
                     });
@@ -67,12 +71,20 @@ const Register = () => {
         GoogleLogin()
             .then(result => {
                 console.log(result.user)
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Login Successful!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
 
-                fetch('http://localhost:3000/users', {
+                fetch('https://historical-artifacts-tracker-server-one.vercel.app/users', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
+                    credentials: 'include',
                     body: JSON.stringify({
                         email: auth.currentUser.email
                     })

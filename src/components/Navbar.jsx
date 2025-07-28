@@ -8,12 +8,12 @@ const Navbar = () => {
 
     const handleLogOut = async () => {
         await LogoutUser();
-        await fetch('http://localhost:3000/logout', {
+        await fetch('https://historical-artifacts-tracker-server-one.vercel.app/logout', {
             method: 'POST',
             credentials: 'include'
         });
 
-        navigate('/');
+        navigate('/login');
     };
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);

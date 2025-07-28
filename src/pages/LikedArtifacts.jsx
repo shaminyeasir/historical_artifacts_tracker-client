@@ -15,7 +15,7 @@ const LikedArtifacts = () => {
             }
 
             try {
-                const userRes = await fetch(`http://localhost:3000/users/${user.email}`, {
+                const userRes = await fetch(`https://historical-artifacts-tracker-server-one.vercel.app/users/${user.email}`, {
                     credentials: 'include'
                 });
 
@@ -34,7 +34,7 @@ const LikedArtifacts = () => {
                     return;
                 }
 
-                const artifactsRes = await fetch(`http://localhost:3000/artifacts/by-ids`, {
+                const artifactsRes = await fetch(`https://historical-artifacts-tracker-server-one.vercel.app/artifacts/by-ids`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
@@ -50,7 +50,7 @@ const LikedArtifacts = () => {
 
             } catch (error) {
                 console.error("Error:", error.message);
-                setLikedArtifacts(null); 
+                setLikedArtifacts(null);
             } finally {
                 setLoading(false);
             }
@@ -60,7 +60,12 @@ const LikedArtifacts = () => {
     }, []);
 
 
-    if (loading) return <div className="text-center mt-10">Loading...</div>;
+    if (loading) return (
+        <div className="text-center mt-10 text-blue-700">
+            <span className="loading loading-spinner loading-lg"></span>
+            <p className="mt-2">Loading liked artifacts...</p>
+        </div>
+    );
 
     return (
         <div className="bg-gray-100 pb-[100px]">

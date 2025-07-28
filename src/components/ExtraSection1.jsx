@@ -1,9 +1,9 @@
 import React from 'react';
-import Writings from '../../public/Writings.jpeg';
-import Documents from '../../public/Documents.jpeg';
-import Tools from '../../public/Tools.jpeg';
-import Weapons from '../../public/Weapons.jpg';
-import Places from '../../public/Places.jpg';
+import Writings from '../assets/Writings.jpeg';
+import Documents from '../assets/Documents.jpeg';
+import Tools from '../assets/Tools.jpeg';
+import Weapons from '../assets/Weapons.jpg';
+import Places from '../assets/Places.jpg';
 
 const categories = [
     { name: 'Writings', img: Writings },

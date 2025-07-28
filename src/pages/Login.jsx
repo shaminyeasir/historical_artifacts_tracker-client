@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router';
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { auth } from '../firebase.init';
+import Swal from 'sweetalert2';
 
 
 
@@ -27,11 +28,19 @@ const Login = () => {
         LogInUser(email, password)
             .then(result => {
                 console.log(result.user);
-                fetch('http://localhost:3000/users', {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Login Successful!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                fetch('https://historical-artifacts-tracker-server-one.vercel.app/users', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
+                    credentials: 'include',
                     body: JSON.stringify({
                         email: auth.currentUser.email
                     })
@@ -53,12 +62,20 @@ const Login = () => {
         GoogleLogin()
             .then(result => {
                 console.log(result.user)
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Login Successful!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
 
-                fetch('http://localhost:3000/users', {
+                fetch('https://historical-artifacts-tracker-server-one.vercel.app/users', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
+                    credentials: 'include',
                     body: JSON.stringify({
                         email: auth.currentUser.email
                     })

@@ -11,7 +11,7 @@ const ArtifactDetails = () => {
 
     useEffect(() => {
         const fetchArtifactAndCheckLiked = async () => {
-            const res = await fetch(`http://localhost:3000/artifacts/${id}`, {credentials: 'include'});
+            const res = await fetch(`https://historical-artifacts-tracker-server-one.vercel.app/artifacts/${id}`, { credentials: 'include' });
             const data = await res.json();
             setArtifact(data);
             setLikeCount(data.likeCount || 0);
@@ -19,7 +19,7 @@ const ArtifactDetails = () => {
             const user = auth.currentUser;
             if (!user) return;
 
-            const userRes = await fetch(`http://localhost:3000/users/${user.email}`, {credentials: 'include'});
+            const userRes = await fetch(`https://historical-artifacts-tracker-server-one.vercel.app/users/${user.email}`, { credentials: 'include' });
             const userData = await userRes.json();
 
             const likedArtifacts = userData.likedArtifacts || [];
@@ -36,7 +36,7 @@ const ArtifactDetails = () => {
         setLiked(!liked);
         setLikeCount(updatedCount);
 
-        await fetch(`http://localhost:3000/artifacts/${id}/like`, {
+        await fetch(`https://historical-artifacts-tracker-server-one.vercel.app/artifacts/${id}/like`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -52,8 +52,8 @@ const ArtifactDetails = () => {
         };
 
         const userLikeUrl = liked
-            ? 'http://localhost:3000/users/unlike'
-            : 'http://localhost:3000/users/like';
+            ? 'https://historical-artifacts-tracker-server-one.vercel.app/users/unlike'
+            : 'https://historical-artifacts-tracker-server-one.vercel.app/users/like';
 
         await fetch(userLikeUrl, {
             method: 'PATCH',
@@ -64,7 +64,12 @@ const ArtifactDetails = () => {
     };
 
 
-    if (!artifact) return <div className="text-center mt-10 text-lg">Loading...</div>;
+    if (!artifact) return (
+        <div className="text-center mt-10 text-blue-700">
+            <span className="loading loading-spinner loading-lg"></span>
+            <p className="mt-2">Loading artifact details...</p>
+        </div>
+    );
 
     return (
         <div className="max-w-4xl mx-auto my-10 p-6 bg-white shadow-lg rounded-lg">

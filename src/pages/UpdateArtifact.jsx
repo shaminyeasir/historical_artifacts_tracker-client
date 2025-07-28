@@ -11,7 +11,7 @@ const UpdateArtifact = () => {
     useEffect(() => {
         const fetchArtifact = async () => {
             try {
-                const res = await fetch(`http://localhost:3000/artifacts/${id}`, {credentials: 'include'});
+                const res = await fetch(`https://historical-artifacts-tracker-server-one.vercel.app/artifacts/${id}`, {credentials: 'include'});
                 const data = await res.json();
                 setArtifact(data);
             } catch (error) {
@@ -29,7 +29,7 @@ const UpdateArtifact = () => {
         const formData = new FormData(form);
         const newArtifact = Object.fromEntries(formData.entries());
 
-        const res = await fetch(`http://localhost:3000/artifacts/${id}`, {
+        const res = await fetch(`https://historical-artifacts-tracker-server-one.vercel.app/artifacts/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',

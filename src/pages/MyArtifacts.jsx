@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { auth } from '../firebase.init';
 import { useNavigate } from 'react-router';
 import { onAuthStateChanged } from 'firebase/auth';
 import Swal from 'sweetalert2';
+import { AuthContext } from '../contexts/AuthContext';
 
 const MyArtifacts = () => {
     const [user, setUser] = useState(null);
     const [myArtifacts, setMyArtifacts] = useState([]);
     const navigate = useNavigate();
+    const { loading } = useContext(AuthContext);
+    const [isFetchingArtifacts, setIsFetchingArtifacts] = useState(true);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -23,16 +26,26 @@ const MyArtifacts = () => {
 
     useEffect(() => {
         if (!user) return;
-        fetch("http://localhost:3000/myartifacts", {
+
+        setIsFetchingArtifacts(true);
+
+        fetch("https://historical-artifacts-tracker-server-one.vercel.app/myartifacts", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: 'include',
             body: JSON.stringify({ email: user.email })
         })
             .then(res => res.json())
-            .then(artifacts => setMyArtifacts(artifacts))
-            .catch(error => console.error("Error fetching artifacts:", error));
+            .then(artifacts => {
+                setMyArtifacts(artifacts);
+                setIsFetchingArtifacts(false);
+            })
+            .catch(error => {
+                console.error("Error fetching artifacts:", error);
+                setIsFetchingArtifacts(false);
+            });
     }, [user]);
+
 
     const handleDelete = (id) => {
         Swal.fire({
@@ -45,7 +58,7 @@ const MyArtifacts = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:3000/artifacts/${id}`, { method: 'DELETE', credentials: 'include' })
+                fetch(`https://historical-artifacts-tracker-server-one.vercel.app/artifacts/${id}`, { method: 'DELETE', credentials: 'include' })
                     .then(res => res.json())
                     .then(data => {
                         if (data.deletedCount) {
@@ -66,6 +79,14 @@ const MyArtifacts = () => {
     const handleUpdate = (id) => {
         navigate(`/updateartifact/${id}`);
     };
+    if (loading || isFetchingArtifacts) {
+        return (
+            <div className="text-center mt-10 text-blue-700">
+                <span className="loading loading-spinner loading-lg"></span>
+                <p className="mt-2">Loading your artifacts...</p>
+            </div>
+        );
+    }
 
     return (
         <div className="container p-4 mx-auto mb-[100px] mt-[50px] text-gray-900 bg-white rounded-md shadow-md">
