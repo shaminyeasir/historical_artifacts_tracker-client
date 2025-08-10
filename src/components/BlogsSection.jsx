@@ -1,7 +1,6 @@
 import React from "react";
 
 const BlogsSection = () => {
-  // Static sample blog data
   const blogs = [
     {
       id: 1,
@@ -40,7 +39,7 @@ const BlogsSection = () => {
 
   return (
     <section className="py-12 bg-gray-50">
-      <div className="max-w-7xl mx-auto">
+      <div className="mx-auto">
         <h2 className="text-3xl font-bold text-center text-blue-700 mb-10 px-4 sm:px-8 md:px-16 lg:px-[160px]">
           Latest Blogs
         </h2>

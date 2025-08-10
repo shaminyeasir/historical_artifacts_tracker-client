@@ -15,9 +15,9 @@ const categories = [
 
 const ExtraSection1 = () => {
     return (
-        <section className="py-16 bg-[#c9c8c8]">
+        <section className="py-16 bg-[#c9c8c8] px-4 sm:px-8 md:px-16 lg:px-[160px]">
             <h2 className="text-3xl font-bold text-center text-[#4a3a24] mb-12">Explore By Category</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 max-w-6xl mx-auto px-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 max-w-6xl mx-auto">
                 {categories.map((category, index) => (
                     <div
                         key={index}
