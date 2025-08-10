@@ -6,7 +6,7 @@ const BlogsSection = () => {
       id: 1,
       title: "The Mystery Behind Ancient Artifacts",
       excerpt:
-        "Discover how historians decode the secrets hidden within ancient relics and what they tell us about our past.",
+        "Discover how historians decode the secrets hidden within ancient relics and what they tell us about the past.",
       author: "Md. Shamin Yeasir",
       publishedAt: "August 5, 2025",
       image:
