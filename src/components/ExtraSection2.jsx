@@ -11,7 +11,7 @@ const facts = [
 
 const ExtraSection2 = () => {
     return (
-        <section className="bg-[#f0ddc0] my-[100px] py-16 px-6 sm:px-12 md:px-24">
+        <section className="bg-[#f1e4d0] my-[100px] py-16 px-6 sm:px-12 md:px-24">
             <h1 className="text-4xl font-bold text-center text-[#5a3e1b] mb-12">
                 Did You Know?
             </h1>
