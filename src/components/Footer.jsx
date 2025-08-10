@@ -5,7 +5,7 @@ import { NavLink } from 'react-router';
 
 const Footer = () => {
     return (
-        <div className="flex flex-col gap-8 justify-between items-center px-20 py-24 bg-gray-100 text-gray-800 border-t border-gray-300">
+        <div className="flex flex-col gap-8 justify-between items-center px-20 py-24 bg-black text-gray-800 border-t border-gray-300">
             <div className="flex flex-col items-center gap-4">
                 <h1 id="Nav_title" className="mb-0 text-3xl font-extrabold text-blue-700">
                     Historical <span className="text-blue-400">Artifacts Tracker</span>
