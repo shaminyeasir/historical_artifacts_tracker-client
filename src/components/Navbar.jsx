@@ -36,7 +36,7 @@ const Navbar = () => {
     }, []);
 
     return (
-        <div className="flex flex-col lg:flex-row justify-between items-center px-6 sm:px-12 md:px-20 lg:px-32 bg-white py-6 gap-6 lg:gap-0 text-gray-700 shadow-md">
+        <div className="fixed top-0 left-0 w-full z-50 flex flex-col lg:flex-row justify-between items-center px-6 sm:px-12 md:px-20 lg:px-32 bg-white py-6 gap-6 lg:gap-0 text-gray-700 shadow-md">
             <div className="flex flex-col gap-4 items-center lg:items-start">
                 <h1
                     id="Nav_title"
@@ -108,8 +108,7 @@ const Navbar = () => {
                                             to="/myartifacts"
                                             onClick={() => setIsDropdownOpen(false)}
                                             className={({ isActive }) =>
-                                                `block px-4 py-2 hover:bg-blue-200 hover:text-blue-900 rounded ${isActive ? 'font-bold bg-blue-200 text-blue-900' : ''
-                                                }`
+                                                `block px-4 py-2 hover:bg-blue-200 hover:text-blue-900 rounded ${isActive ? 'font-bold bg-blue-200 text-blue-900' : ''}`
                                             }
                                         >
                                             My Artifacts
@@ -121,8 +120,7 @@ const Navbar = () => {
                                             to="/likedartifacts"
                                             onClick={() => setIsDropdownOpen(false)}
                                             className={({ isActive }) =>
-                                                `block px-4 py-2 hover:bg-blue-200 hover:text-blue-900 rounded ${isActive ? 'font-bold bg-blue-200 text-blue-900' : ''
-                                                }`
+                                                `block px-4 py-2 hover:bg-blue-200 hover:text-blue-900 rounded ${isActive ? 'font-bold bg-blue-200 text-blue-900' : ''}`
                                             }
                                         >
                                             Liked Artifacts
